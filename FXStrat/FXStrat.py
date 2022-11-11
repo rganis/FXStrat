@@ -13,10 +13,9 @@ arr_len = len(tickers)
 t1arr = []
 for y in range (0, arr_len):
     tix = yf.Ticker(tickers[y])
-    df1 = pd.DataFrame(tix.history(period="1mo"))
-    df2 = df1.reset_index(drop=True)
-    df3 = df2["Close"]
-    t1arr.append(df3)
+    df1 = pd.DataFrame(tix.history(period="1mo")).reset_index(drop=True)["Close"]
+    df1.name = tickers[y]
+    t1arr.append(df1)
     y += 1
 # compute the correlation matrix
 df = pd.DataFrame(data = t1arr).transpose()
