@@ -19,8 +19,7 @@ for y in range (0, arr_len):
     t1arr.append(df3)
     y += 1
 # compute the correlation matrix
-dft = pd.DataFrame(data = t1arr)
-df = dft.transpose()
+df = pd.DataFrame(data = t1arr).transpose()
 
 # Print the dataframe
 print("Data Frame")
@@ -31,15 +30,6 @@ print()
 print("Correlation Matrix")
 print(df.corr())
 print()
-
-# Drop self-correlations
-def get_redundant_pairs(df):
-    pairs_to_drop = set()
-    cols = df.columns
-    for i in range(0, df.shape[1]):
-        for j in range(0, i+1):
-            pairs_to_drop.add((cols[i], cols[j]))
-    return pairs_to_drop
 
 # Get top 3 correlated pairs
 def get_top_abs_correlations(df, n=5):
