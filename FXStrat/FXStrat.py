@@ -31,6 +31,15 @@ print("Correlation Matrix")
 print(df.corr())
 print()
 
+# Drop self-correlations
+def get_redundant_pairs(df):
+    pairs_to_drop = set()
+    cols = df.columns
+    for i in range(0, df.shape[1]):
+        for j in range(0, i+1):
+            pairs_to_drop.add((cols[i], cols[j]))
+    return pairs_to_drop
+
 # Get top 3 correlated pairs
 def get_top_abs_correlations(df, n=5):
     au_corr = df.corr().abs().unstack()
