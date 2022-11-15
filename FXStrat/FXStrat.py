@@ -21,14 +21,14 @@ for y in range (0, arr_len):
 df = pd.DataFrame(data = t1arr).transpose()
 
 # Print the dataframe
-print("Data Frame")
-print(df)
-print()
+#print("Data Frame")
+#print(df)
+#print()
 
 # Print the correlation matrix
-print("Correlation Matrix")
-print(df.corr())
-print()
+#print("Correlation Matrix")
+#print(df.corr())
+#print()
 
 # Drop self-correlations
 def get_redundant_pairs(df):
@@ -48,3 +48,30 @@ def get_top_abs_correlations(df, n=5):
 
 print("Top Correlations")
 print(get_top_abs_correlations(df, 3))
+
+# Retrieve the close data for the top 2 pairs
+top_pairs = get_top_abs_correlations(df, 3)
+group1pair1 = top_pairs.index[0][0]
+group1pair2 = top_pairs.index[0][1]
+
+for each in t1arr:
+    if each.name == group1pair1:
+        pair1 = each
+    if each.name == group1pair2:
+        pair2 = each
+# Confirm correlation is positive or negative
+print("Correlation between", group1pair1, "and", group1pair2, "is", pair1.corr(pair2))
+
+# Index price changes to 100 and compare
+calcdf1 = pd.DataFrame(pair1.pct_change())
+calcdf1['Series'] = 100*np.exp(np.nan_to_num(calcdf1.cumsum()))
+df1data = calcdf1['Series']
+calcdf2 = pd.DataFrame(pair2.pct_change())
+if pair1.corr(pair2) < 0:
+    calcdf2 = pd.DataFrame(pair2.pct_change())*-1
+    calcdf2['Series'] = 100*np.exp(np.nan_to_num(calcdf2.cumsum()))
+else:
+    calcdf2 = pd.DataFrame(pair2.pct_change())
+    calcdf2['Series'] = 100*np.exp(np.nan_to_num(calcdf2.cumsum()))
+df2data = calcdf2['Series']
+print(df1data-df2data)
