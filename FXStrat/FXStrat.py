@@ -5,7 +5,7 @@ import pandas as pd
 import numpy as np
 import yfinance as yf
 import datetime as dt
-# Get the data and store as an array of pandas dataframes
+# Get the data and store as an array of dataframes
 tickers = ["EURUSD=X", "GBPUSD=X", "AUDUSD=X", "NZDUSD=X", "USDCAD=X", "USDCHF=X", "USDJPY=X", "EURGBP=X", "EURJPY=X", "EURCHF=X", "EURCAD=X", "EURAUD=X", "EURNZD=X", "GBPJPY=X",
            "GBPCHF=X", "GBPCAD=X", "GBPAUD=X", "GBPNZD=X", "AUDJPY=X", "AUDCHF=X", "AUDCAD=X", "AUDNZD=X", "NZDJPY=X", "NZDCHF=X", "NZDCAD=X", "CADJPY=X", "CADCHF=X", "CHFJPY=X"]
 y = 0
@@ -17,6 +17,7 @@ for y in range (0, arr_len):
     df1.name = tickers[y]
     t1arr.append(df1)
     y += 1
+
 # compute the correlation matrix
 df = pd.DataFrame(data = t1arr).transpose()
 
