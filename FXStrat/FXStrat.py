@@ -27,9 +27,9 @@ df = pd.DataFrame(data = t1arr).transpose()
 #print()
 
 # Print the correlation matrix
-#print("Correlation Matrix")
-#print(df.corr())
-#print()
+print("Correlation Matrix")
+print(df.corr())
+print()
 
 # Drop self-correlations
 def get_redundant_pairs(df):
@@ -44,7 +44,7 @@ def get_redundant_pairs(df):
 def get_top_abs_correlations(df, n=5):
     au_corr = df.corr().abs().unstack()
     labels_to_drop = get_redundant_pairs(df)
-    au_corr = au_corr.drop(labels=labels_to_drop).sort_values(ascending=False)
+    au_corr = au_corr.drop(labels=labels_to_drop).sort_values(ascending=True)
     return au_corr[0:n]
 
 print("Top Correlations")
